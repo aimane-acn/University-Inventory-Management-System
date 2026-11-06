@@ -1,0 +1,157 @@
+{% extends "basedirecteur.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block content %}
+
+    <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> <br>
+    
+   <form method="post" autocomplete="off" id="formAjouterProf">
+    {% csrf_token %}
+
+    <!-- Offscreen dummy inputs to absorb aggressive browser autofill -->
+    <div style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; overflow: hidden;" aria-hidden="true">
+        <input type="text" name="fake_username_filler" tabindex="-1" autocomplete="username" />
+        <input type="password" name="fake_password_filler" tabindex="-1" autocomplete="current-password" />
+    </div>
+    
+    <style>
+        /* Style for the form group */
+        .form-group {
+            margin-bottom: 20px; /* Add some space between form groups */
+        }
+    
+        /* Style for the labels */
+        label {
+            font-weight: bold; /* Make labels bold */
+            color: #333; /* Set label color */
+            font-size: 1.6em;
+        }
+
+        /* Prevent browser autofill yellow/blue highlights */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px white inset !important;
+            box-shadow: 0 0 0 1000px white inset !important;
+            -webkit-text-fill-color: #333 !important;
+        }
+        @keyframes onAutoFillStart { from {} to {} }
+        input:-webkit-autofill {
+            animation-name: onAutoFillStart;
+        }
+    </style>
+
+    <div class="form-group">
+        <label for="id_nom">Nom:</label>
+        <input type="text" id="id_nom" name="nom" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" value="" required>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="id_prenom">Prenom:</label>
+            <input type="text" id="id_prenom" name="prenom" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" value="" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="id_email">Email:</label>
+            <input type="email" id="id_email" name="email" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" value="" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="id_telephone">Telephone:</label>
+        <input type="text" id="id_telephone" name="telephone" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" value="" required>
+    </div>
+
+    <div class="form-group">
+        <label for="id_departement">Departement</label>
+        <select id="id_departement" name="departement" class="form-control" required>
+            <option value="Génie informatique">Génie informatique</option>
+            <option value="Energies renouvlables">Energies renouvlables</option>
+            <option value="Génie eléctrique">Génie eléctrique</option>
+            <option value="Technique de management">Technique de management</option>
+        </select> 
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="id_nomUtilisateur">Nom d'utilisateur:</label>
+            <input 
+                type="text" 
+                id="id_nomUtilisateur" 
+                name="nomUtilisateur" 
+                class="form-control" 
+                autocomplete="off" 
+                readonly
+                onfocus="this.removeAttribute('readonly');"
+                onblur="if(!this.value) this.setAttribute('readonly', 'true');"
+                value="" 
+                required
+            >
+        </div>
+        <div class="form-group col-md-6">
+            <label for="id_motDePasse">Mot de passe:</label>
+            <input 
+                type="text" 
+                id="id_motDePasse" 
+                name="motDePasse" 
+                class="form-control" 
+                autocomplete="new-password" 
+                readonly
+                onfocus="this.type='password'; this.removeAttribute('readonly');"
+                onblur="if(!this.value) { this.type='text'; this.setAttribute('readonly', 'true'); }"
+                value="" 
+                required
+            >
+        </div>
+    </div>
+
+    <br>
+
+    <div class="align-middle">
+        <button type="submit" class="btn btn-success">Envoyer</button>
+        <button type="reset" class="btn btn-danger" >Réinitialiser</button>
+        <a href="{% url 'list_fonctionnaire'%}" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>
+
+<script>
+    (function() {
+        const u = document.getElementById('id_nomUtilisateur');
+        const p = document.getElementById('id_motDePasse');
+
+        function forceClear() {
+            if (u && !u.dataset.userTyped) u.value = '';
+            if (p && !p.dataset.userTyped) p.value = '';
+        }
+
+        document.addEventListener('animationstart', function(e) {
+            if (e.animationName === 'onAutoFillStart' && !e.target.dataset.userTyped) {
+                e.target.value = '';
+            }
+        }, true);
+
+        [u, p].forEach(el => {
+            if (el) {
+                el.addEventListener('input', () => { el.dataset.userTyped = 'true'; });
+                el.addEventListener('keydown', () => { el.dataset.userTyped = 'true'; });
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', forceClear);
+        window.addEventListener('pageshow', forceClear);
+        window.addEventListener('load', forceClear);
+
+        let ticks = 0;
+        const interval = setInterval(() => {
+            forceClear();
+            ticks++;
+            if (ticks > 30) clearInterval(interval);
+        }, 50);
+    })();
+</script>
+
+{% endblock content %}

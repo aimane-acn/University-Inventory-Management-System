@@ -1,0 +1,55 @@
+{% extends "basefonctionnaire.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    
+    <br><!-- Log on to codeastro.com for more projects -->
+
+    <form method="post">
+        {% csrf_token %}
+        {% comment %} {%if name_commande== {{form.name_commande}} ||  name_commande != {{form.name_commande}}%} {% endcomment %}
+            
+            {{ form.non_field_errors }}
+            
+            <div class="form-group col-md-6">
+                {{ form.name_commande.errors }}
+                <label for="{{ form.name_commande.id_for_label }}">Name:</label>
+                <select name='name_commande' class="textinput form-control" id="id_name_commande"> 
+                    {% for stock in stocks %}
+                    <option value='{{ stock.name_produit }}'>{{ stock.name_produit }}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+        {% comment %} {% endif%} {% endcomment %}
+        <div class="form-group ">
+            {{ form.quantity_commande.errors }}
+            <label for="{{ form.quantity_commande.id_for_label }}">Quantity:</label>
+            {{ form.quantity_commande }}
+        </div>
+
+        <br><!-- Log on to codeastro.com for more projects -->
+
+        <div class="align-middle">
+            <button type="submit" class="btn btn-success">{{ savebtn }}</button>
+            {% if title == "New Stock" %}
+                <button type="reset" class="btn btn-danger" >Reset</button>
+            {% endif %}
+            {% if delbtn %}
+                <a href="{% url 'delete-stock' object.pk %}" class="btn  btn-danger"> Delete Stock </a>
+            {% endif %}
+            <a href="{% url 'inventory' %}" class="btn btn-secondary">Cancel</a>
+            {% if besion %}
+                <a href="{% url 'new-besion'%}" class="btn btn-success"> besion </a>
+            {% endif %}
+            
+        </div>
+        
+    </form><!-- Log on to codeastro.com for more projects -->
+
+{% endblock content %}

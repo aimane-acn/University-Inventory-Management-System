@@ -1,0 +1,366 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Connexion - Gestion de Stock Universitaire</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      background-image: url("{% static 'Pics/background 1.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .main-page-container {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Compact External Demo Accounts Bar */
+    .demo-external-box {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(4px);
+    }
+    .demo-ext-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .demo-ext-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 480px) {
+      .demo-ext-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .demo-pill-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .demo-pill-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    .demo-pill-role {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .demo-pill-info {
+      font-size: 10px;
+      color: #64748b;
+      font-family: monospace;
+    }
+
+    /* Main Login Card */
+    .login-wrapper {
+      background-color: rgba(255, 255, 255, 0.97);
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(4px);
+    }
+    .app-title {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      color: #1a202c;
+      margin-bottom: 4px;
+    }
+    .app-subtitle {
+      font-size: 12px;
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+
+    /* Form Styles */
+    .input-box {
+      margin-bottom: 14px;
+    }
+    .input-box label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+    .input-box input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border 0.2s;
+      background: #fff;
+    }
+    .input-box input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 11px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-1px);
+    }
+    .alert-box {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+    .alert-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+    .alert-success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+    }
+    .signup-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #64748b;
+    }
+    .signup-link a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-page-container">
+
+    <!-- Compact Demo Accounts Section OUTSIDE the login card -->
+    <div class="demo-external-box">
+      <div class="demo-ext-title">
+        <span><i class="fas fa-id-card-clip" style="color: #4f46e5;"></i> Comptes Démo (Portfolio)</span>
+        <span style="font-size: 10px; color:#6366f1; font-weight: 600;">1-Clic Remplir</span>
+      </div>
+      <div class="demo-ext-grid">
+        
+        <div class="demo-pill-btn" onclick="fillCredentials('fonctionnaire', 'Aimane123@')">
+          <div class="demo-pill-role"><i class="fas fa-user-graduate" style="color:#2563eb;"></i> Fonctionnaire</div>
+          <div class="demo-pill-info">fonctionnaire</div>
+        </div>
+
+        <div class="demo-pill-btn" onclick="fillCredentials('stock_manager', 'Aimane123@')">
+          <div class="demo-pill-role"><i class="fas fa-warehouse" style="color:#059669;"></i> Stock Manager</div>
+          <div class="demo-pill-info">stock_manager</div>
+        </div>
+
+        <div class="demo-pill-btn" onclick="fillCredentials('directeur', 'Aimane123@')">
+          <div class="demo-pill-role"><i class="fas fa-user-tie" style="color:#7c3aed;"></i> Directeur</div>
+          <div class="demo-pill-info">directeur</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Main Login Card -->
+    <div class="login-wrapper">
+      <div class="app-title"><i class="fas fa-boxes-stacked" style="color:#2563eb;"></i> Gestion de Stock</div>
+      <div class="app-subtitle">Plateforme Universitaire d'Affectation du Matériel</div>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert-box alert-{% if message.tags == 'error' or message.tags == 'warning' %}error{% else %}success{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% if error %}
+        <div class="alert-box alert-error">
+          <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+      {% endif %}
+
+    <style>
+      /* Prevent browser autofill yellow/blue highlights */
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover, 
+      input:-webkit-autofill:focus, 
+      input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 1000px white inset !important;
+        box-shadow: 0 0 0 1000px white inset !important;
+        -webkit-text-fill-color: #333 !important;
+      }
+      @keyframes onAutoFillStart { from {} to {} }
+      input:-webkit-autofill {
+        animation-name: onAutoFillStart;
+      }
+    </style>
+
+    <!-- Login Form with Anti-Autofill -->
+    <form action="" method="post" id="loginForm" autocomplete="off">
+      {% csrf_token %}
+      
+      <!-- Offscreen dummy inputs to absorb aggressive browser autofill -->
+      <div style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; overflow: hidden;" aria-hidden="true">
+        <input type="text" name="fake_username_filler" tabindex="-1" autocomplete="username" />
+        <input type="password" name="fake_password_filler" tabindex="-1" autocomplete="current-password" />
+      </div>
+
+      <div class="input-box">
+        <label for="nomUtilisateur"><i class="fas fa-user"></i> Nom d'utilisateur</label>
+        <input 
+          type="text" 
+          id="nomUtilisateur"
+          name="nomUtilisateur" 
+          placeholder="Entrez votre nom d'utilisateur" 
+          autocomplete="off" 
+          readonly
+          onfocus="this.removeAttribute('readonly');"
+          onblur="if(!this.value) this.setAttribute('readonly', 'true');"
+          required 
+          value=""
+        />
+      </div>
+
+      <div class="input-box">
+        <label for="motDePasse"><i class="fas fa-lock"></i> Mot de passe</label>
+        <input 
+          type="password" 
+          id="motDePasse"
+          name="motDePasse" 
+          placeholder="Entrez votre mot de passe" 
+          autocomplete="new-password" 
+          readonly
+          onfocus="this.removeAttribute('readonly');"
+          onblur="if(!this.value) this.setAttribute('readonly', 'true');"
+          required 
+          value=""
+        />
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-sign-in-alt"></i> Se connecter
+      </button>
+
+      <div class="signup-link">
+        Vous voulez créer des articles ou faire des commandes ?<br>
+        <a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Créer un nouveau compte</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+  function fillCredentials(username, password) {
+    const uInput = document.getElementById('nomUtilisateur');
+    const pInput = document.getElementById('motDePasse');
+    if (uInput && pInput) {
+      uInput.removeAttribute('readonly');
+      pInput.removeAttribute('readonly');
+      uInput.dataset.userTyped = 'true';
+      pInput.dataset.userTyped = 'true';
+      uInput.value = username;
+      pInput.value = password;
+      uInput.focus();
+    }
+  }
+
+  (function() {
+    const uInput = document.getElementById('nomUtilisateur');
+    const pInput = document.getElementById('motDePasse');
+
+    function clearLoginInputs() {
+      {% if not error %}
+      if (uInput && !uInput.dataset.userTyped) uInput.value = '';
+      if (pInput && !pInput.dataset.userTyped) pInput.value = '';
+      {% endif %}
+    }
+
+    document.addEventListener('animationstart', function(e) {
+      if (e.animationName === 'onAutoFillStart' && !e.target.dataset.userTyped) {
+        {% if not error %}
+        e.target.value = '';
+        {% endif %}
+      }
+    }, true);
+
+    [uInput, pInput].forEach(el => {
+      if (el) {
+        el.addEventListener('input', () => { el.dataset.userTyped = 'true'; });
+        el.addEventListener('keydown', () => { el.dataset.userTyped = 'true'; });
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', clearLoginInputs);
+    window.addEventListener('pageshow', clearLoginInputs);
+    window.addEventListener('load', clearLoginInputs);
+
+    let count = 0;
+    const interval = setInterval(() => {
+      clearLoginInputs();
+      count++;
+      if (count > 30) clearInterval(interval);
+    }, 50);
+  })();
+</script>
+</body>
+</html>

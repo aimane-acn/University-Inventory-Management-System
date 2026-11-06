@@ -1,0 +1,90 @@
+{% extends "basedirecteur.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} List de professeurs {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem;">
+        <div class="col-md-8">Liste de professeurs</div>
+        <div class="col-md-4">               
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'ajouter_prof' %}">Ajouter un professeur</a> </div>
+        </div>
+    </div>
+
+    <br>
+
+    <table class="table table-css table-hover table-bordered">
+        
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Departement</th>
+                <th>Modification</th>
+            </tr>
+        </thead>
+
+{% if object_list %}
+
+        <tbody>
+            {% for supplier in object_list %}
+            <tr>
+                <td class="align-middle"> {{ supplier.nom }} </td>
+                <td class="align-middle"> {{ supplier.prenom }} </td>
+                <td class="align-middle"> {{ supplier.email }} </td>
+                <td class="align-middle"> {{ supplier.telephone }} </td>
+                <td class="align-middle"> {{ supplier.departement }} </td>
+                <td class="align-middle">
+                    <div class="align-middle">
+                        <a href="{% url 'modifier_prof' supplier.pk %}" class="btn btn-info btn-sm">modifier</a>
+                        <a href="{% url 'supprimer_prof' supplier.pk %}" class="btn btn-danger btn-sm">supprimer</a>
+                    </div>
+                </td>              
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle"><!-- Log on to codeastro.com for more projects -->
+        {% if is_paginated and page_obj.has_other_pages %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+        <tbody></tbody>   
+    </table><!-- Log on to codeastro.com for more projects -->
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>
+
+{% endif %}
+
+
+{% endblock content %}

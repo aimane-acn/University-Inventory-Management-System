@@ -1,0 +1,79 @@
+{% extends 'basedirecteur.html' %}
+
+{% load static %}
+
+
+{% block title %} Produits les plus commandés {% endblock title %}
+
+
+{% block content %}
+
+    <div class="align-middle" style="color:#4b0082;font-weight:bold;text-decoration:underline; font-style: bold; font-size: 3rem; border-bottom: 1px solid #464646;">Produits les plus commandés   </div>
+<br>
+<br>
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits les plus commandés</title>
+    <!-- Inclure la bibliothèque Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+   
+
+    <div id="container" style="position: relative; height:52vh;width: 100%; border: 1.2mm ridge #4e6570; border-radius: 30px;" class="align-middle table-bordered">
+        <canvas id="bar-graph"></canvas>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('bar-graph').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for produit in produits_plus_commandes %}"{{ produit.produit__name_produit }}",{% endfor %}],
+                    datasets: [{
+                        label: 'Quantité commandée',
+                        data: [{% for produit in produits_plus_commandes %}{{ produit.total_commandes }},{% endfor %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            // Réglage de la taille du graphique pour qu'il corresponde au conteneur
+            var container = document.getElementById('container');
+            var canvas = document.getElementById('bar-graph');
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        });
+    </script>
+    <br>
+    <ul class="arrow">
+        <li><p style="font-weight:bold;font-size:22px">Voici un diagramme présentant les produits les plus commandés. Chaque produit est représenté en fonction du nombre de commandes qu'il a reçu, offrant ainsi une vue claire de la popularité de chaque article auprès des fonctionnaires.</p>
+    </ul>
+       
+{% endblock content %}

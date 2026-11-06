@@ -1,0 +1,87 @@
+{% extends "basedirecteur.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} List commande {% endblock title %}
+
+
+{% block content %}
+    <!-- Log on to codeastro.com for more projects -->
+    <div class="align-middle" style="color: #4b0082; font-style: bold; font-size: 3rem; ">
+        <div style="font-weight:bold;text-decoration:underline;">Archive de commandes</div>
+    </div>
+    
+    <div style="border-bottom: 1px solid white;"></div>
+    
+    <br>
+
+    <table class="table table-css table-bordered table-hover">
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th>ID Commande</th>
+                <th>Fonctionnaire</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Détails</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            {% for commande in commande_list %}
+                <tr>
+                    <td style="font-weight:bold" class="align-middle">{{ commande.id }}</td>
+                    <td class="align-middle">{{ commande.Professeur.nom }}</td>
+                    {% if commande.validation == 'en attente' %}
+                        <td style="font-weight:bold" class="align-middle">{{ commande.validation }}</td>
+                    {% elif commande.validation == 'Accepter' %}
+                        <td style="color: green;font-weight:bold" class="align-middle">{{ commande.validation }}</td>
+                    {% elif commande.validation == 'recus' %}
+                        <td style="color:orange;font-weight:bold" class="align-middle">{{ commande.validation }}</td>
+                    {% else %}
+                        <td style="color:red;font-weight:bold" class="align-middle">{{ commande.validation }}</td>
+                    {% endif %}
+                    <td class="align-middle">{{ commande.Date }}</td>
+                    <td class="align-middle">
+                        <a href="{% url 'view_more_archive' commande.id %}" style="background-color:#138496;border-color:#138496" class="btn btn-info btn-sm">Voir plus</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+     
+
+    {% comment %} <div class="align-middle">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+         <tbody></tbody>   
+    </table>
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div> 
+
+{% endif %} {% endcomment %}
+{% endblock content %}

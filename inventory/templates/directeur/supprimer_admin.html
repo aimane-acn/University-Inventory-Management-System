@@ -1,0 +1,25 @@
+{% extends "basedirecteur.html" %}
+
+
+{% block title %} Supprimer {% endblock title %}
+
+
+{% block content %}
+                
+    <form method="post"><!-- Log on to codeastro.com for more projects -->
+        
+        {% csrf_token %}
+        
+        <fieldset class="form-group"><!-- Log on to codeastro.com for more projects -->
+            <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">Supprimer</div> <br>
+            <h2 style="color:#575757;">Êtes-vous sûr de vouloir supprimer le professeur "{{ object.nom }}"?</h2>
+        </fieldset>
+
+        <div class="form-group">  <!-- Log on to codeastro.com for more projects -->
+            <button type="submit" class="btn btn-danger">Oui, Supprimer</button>
+            <a href="{% url 'list_admin' %}" class="btn btn-secondary">Annuler</a>
+        </div>
+        
+    </form>
+
+{% endblock content %}

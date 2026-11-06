@@ -1,0 +1,166 @@
+{% load static %}
+<!-- Log on to codeastro.com for more projects -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-1aM/21VZ9GFmGE/BgVQ5Uv/zxkYl1P2I21VLlZSU7bPPIpd+qfJ0VfdzVqY0EzB3" crossorigin="anonymous">
+
+    <!-- Main CSS, then Sidebar CSS and Dialog Box CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">    
+
+    <title>{% block title %}Title Missing{% endblock title %}</title>
+
+</head>
+
+<!-- Log on to codeastro.com for more projects -->
+<body>
+
+    <!-- Dialog Box CSS  -->
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox">
+        <div class="align-middle">
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+        </div>
+    </div>
+
+    <main id="wrapper">
+    
+    {% comment %} {% if user.is_authenticated %} {% endcomment %}
+    
+        <nav id="sidebar">
+            
+            <div class="sidebar-header">
+                <a class="navbar-brand titlefont mr-4" href="{% url 'list_produit' %}"><h3> Magasinier </h3></a>
+            </div>
+
+            <ul class="list-unstyled sidebar-components">
+                {# <p class="sidebar-paragraph">Dummy Heading</p> #}
+                <li> 
+                    <a class="sidebar-text sidebar-button" href="{% url 'list_produit' %}"><i class="fas fa-home"></i> Acceuil</a>
+                    <a class="sidebar-text sidebar-button" href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Tableau de bord</a>
+                </li>               
+                <li>       
+                    <a href="{% url 'new-produit' %}"  class=" sidebar-text right-arrow sidebar-button"><i class="fas fa-square fa-plus"></i> Ajouter des produits</a>
+                    {% comment %} <ul class="collapse list-unstyled" id="inventorySubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-stock' %}"><i class="fas fa-dot-circle"></i> Ajouter une commande</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'inventory' %}"><i class="fas fa-dot-circle"></i> Listes des commandes </a> </li>   
+                    </ul> {% endcomment %}
+                </li>
+                <li>
+                     <a href="{% url 'list_commande' %}"  class=" sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Liste de commandes</a>
+                     {% comment %} <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-besion' %}"><i class="fas fa-dot-circle"></i>Exprimer un besion</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'list_besion' %}"><i class="fas fa-dot-circle"></i> Listes des besions</a> </li>
+                    </ul> {% endcomment %}
+                </li>
+
+                <li>
+                    <a href="{% url 'list_besions' %}"  class=" sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Liste de besoins</a>
+                    {% comment %} <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                       <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-besion' %}"><i class="fas fa-dot-circle"></i>Exprimer un besion</a> </li>
+                       <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'list_besion' %}"><i class="fas fa-dot-circle"></i> Listes des besions</a> </li>
+                   </ul> {% endcomment %}
+                </li>
+                {% comment %} 
+                <li>
+                    <a class='hidden'>lklk</a>
+                    <a href="#purchaseSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Purchases</a>
+                    <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'select-supplier' %}"><i class="fas fa-dot-circle"></i> New Incoming Stock</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'purchases-list' %}"><i class="fas fa-dot-circle"></i> Purchases List</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#saleSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dollar-sign"></i> Sales</a>
+                    <ul class="collapse list-unstyled" id="saleSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-sale' %}"><i class="fas fa-dot-circle"></i> New Outgoing Stock</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'sales-list' %}"><i class="fas fa-dot-circle"></i> Sales Orders</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#supplierSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dolly-flatbed"></i> Suppliers</a>
+                    <ul class="collapse list-unstyled" id="supplierSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-supplier' %}"><i class="fas fa-dot-circle"></i> Add New Supplier</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'suppliers-list' %}"><i class="fas fa-dot-circle"></i> Suppliers List</a> </li>
+                    </ul>
+                </li> {% endcomment %}
+                {% comment %} <li>
+                    <a class="sidebar-text sidebar-button" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About</a>
+                </li><!-- Log on to codeastro.com for more projects --> {% endcomment %}
+
+                
+                    {% comment %} <a href="#UserSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-user-circle"></i> {{ request.user.username }}</a> {% endcomment %}
+                <li class="bottomleft">
+                    <div style="padding: 10px 15px; color: #fff; border-top: 1px solid rgba(255,255,255,0.15);">
+                        <div style="font-size: 13px; font-weight: bold;"><i class="fas fa-user-circle"></i> {{ request.session.username|default:"Magasinier" }}</div>
+                        {% if request.session.is_demo %}
+                            <span class="badge badge-warning" style="font-size: 10px; margin-top: 4px; display:inline-block;">Mode Démo (Lecture seule)</span>
+                        {% else %}
+                            <span class="badge badge-success" style="font-size: 10px; margin-top: 4px; display:inline-block;">Compte Actif (Modifications autorisées)</span>
+                        {% endif %}
+                    </div>
+                    <a  class=" sidebar-text right-arrow sidebar-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                </li> 
+
+            </ul>
+            {% comment %}
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="#" class="sidebar-button nav-button">Button</a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-text">Link</a>
+                </li>
+            </ul>
+            {% endcomment %}
+
+        </nav>
+    
+        <div id="content">
+
+            <div class="row">
+                <div class="col-md-12">
+                
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+                        {% endfor %}
+                    {% endif %}
+                
+    {% comment %} {% endif %}  {% endcomment %}
+
+                    <div class="container">
+                        {% block content %}{% endblock content %}
+                    </div>
+                    
+                </div>
+            </div>
+            <br>
+
+        </div>
+    
+    </main>    
+        <!-- Log on to codeastro.com for more projects -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

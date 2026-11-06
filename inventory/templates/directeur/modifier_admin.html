@@ -1,0 +1,57 @@
+{% extends "basedirecteur.html" %}
+
+
+{% block title %} Modifier admin {% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    <div >
+        {% if besion %}
+                        <a style="float:right;" href="{% url 'new-besion'%}" class="btn btn-success">Exprimer un besion</a>
+        {% endif %}
+    </div>
+
+    <br><!-- Log on to codeastro.com for more projects -->
+
+    <form method="post" >
+        {% csrf_token %}
+
+        <style>
+            /* Style for the form group */
+            .form-group {
+                margin-bottom: 20px; /* Add some space between form groups */
+            }
+        
+            /* Style for the labels */
+            label {
+                font-weight: bold; /* Make labels bold */
+                color: #333; /* Set label color */
+                font-size: 1.6em;
+        
+            }
+        </style>
+
+            <div class="form-group ">
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{admin.email}}" class="form-control">    
+            </div>
+            
+            <div class="form-group ">
+                <label for="telephone">Telephone:</label>
+                <input type="tel" name="telephone" value="{{admin.telephone}}" class="form-control">
+            </div>
+
+            
+        <br><!-- Log on to codeastro.com for more projects -->
+
+        <div class="align-middle">
+            <input type="submit" class="btn btn-success" value="{{ savebtn }}" >
+            <a href="{% url 'list_admin' %}" class="btn btn-secondary">Annuler</a>
+           
+        </div>
+        
+    </form><!-- Log on to codeastro.com for more projects -->
+
+{% endblock content %}

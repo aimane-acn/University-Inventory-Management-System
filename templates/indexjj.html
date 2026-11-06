@@ -1,0 +1,91 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="{% static "style.css" %}">
+  <style>
+    body {
+      background-image: url("{% static 'background_image.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+    }
+    header {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .input-box {
+      margin-bottom: 15px;
+    }
+    .input-box label {
+      font-weight: bold;
+    }
+    .input-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+    .input-box input:focus {
+      outline: none;
+      border-color: #007bff; /* Change border color on focus */
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <section class="container">
+    <form action="" method="post" class="form">
+      {% csrf_token %}
+      <header>Login Page</header>
+      <div class="input-box">
+        <label for="nom">Nom d'utilisateur</label>
+        <input type="text" placeholder="Entrez votre nom d'utilisateur" name="nomUtilisateur" required />
+      </div>
+      <div class="input-box">
+        <label for="motDePasse">Mot de passe</label>
+        <input type="password" placeholder="Entrez votre mot de passe" name="motDePasse" required />
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+      </div>
+      <button>Connexion</button>
+      {% comment %} <p style="text-align:right;margin: 5 5 0 0 ;">nouveau compte <a href="{% url 'signup' %}" style="color:purple;margin-left:5px;">signup</a></p> {% endcomment %}
+    </form>
+  </section>
+</body>
+</html>

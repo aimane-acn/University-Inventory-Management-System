@@ -1,0 +1,59 @@
+<!-- Dans votre template HTML -->
+{% extends 'basemagasinier.html' %}
+
+{% load static %}
+
+
+{% block title %} Tableau de bord {% endblock title %}
+
+
+{% block content %}
+
+    <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid #464646;">Etat des produits dans le stock</div>
+
+    <br>
+    <br>
+
+    <div id="container" style="position: relative; height:52vh; border: 1.2mm ridge #4e6570; border-radius: 30px;" class="align-middle table-bordered">
+        <canvas id="bar-graph"></canvas>
+    </div>
+
+    <br>
+
+<!-- Log on to codeastro.com for more projects -->
+
+    <!-- Loading Chart JS -->
+    <script src="{% static 'js\Chart.min.js' %}"></script>  
+    <script>
+        Chart.defaults.global.defaultFontColor = '#696969';
+
+        //configuration for the bar graph
+        var barConfig = {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    backgroundColor: '#4682B4',
+                    label: 'Stock',
+                    data: {{ data|safe }},
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            },
+        };
+
+
+        //runs all charts on loading the webpage
+        window.onload = function() {
+            var ctx = document.getElementById('bar-graph').getContext('2d');
+            window.BarStock = new Chart(ctx, barConfig);
+        };
+
+    </script>
+    <ul class="arrow">
+        <li><p style="font-weight:bold;font-size:22px">Voici un diagramme illustrant le niveau et l'état de chaque produit dans le stock, avec le nom du produit représenté par la quantité avec des lignes pour indiquer les variations de stock au fil du temps</p>
+    </ul>
+
+{% endblock content %}

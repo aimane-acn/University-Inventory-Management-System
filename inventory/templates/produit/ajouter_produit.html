@@ -1,0 +1,129 @@
+{% extends "basemagasinier.html" %}
+
+{% block title %} {{title}} {% endblock title %}
+
+{% block content %}
+
+    <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    
+    <br><!-- Log on to codeastro.com for more projects -->
+    <br>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <style>
+            /* Style for the form group */
+            .form-group {
+                margin-bottom: 10px; /* Add some space between form groups */
+            }
+
+            /* Style for the labels */
+            label {
+                font-weight: bold; /* Make labels bold */
+                color: #333; /* Set label color */
+                font-size: 1.6em;
+            }
+
+            /* Style for the text input */
+            input[type="text"].textinput {
+                width: 100%; /* Make text input full width */
+                padding: 8px; /* Add padding */
+                font-size: 14px; /* Set font size */
+                border: 1px solid #ccc; /* Add border */
+                border-radius: 5px; /* Add border radius */
+                box-sizing: border-box; /* Ensure padding and border are included in width */
+                margin-bottom: 1px; /* Add some space below text input */
+            }
+
+            /* Style for the number input */
+            input[type="number"].textinput {
+                width: 100%; /* Make number input full width */
+                padding: 8px; /* Add padding */
+                font-size: 14px; /* Set font size */
+                border: 1px solid #ccc; /* Add border */
+                border-radius: 5px; /* Add border radius */
+                box-sizing: border-box; /* Ensure padding and border are included in width */
+                margin-bottom: 1px; /* Add some space below number input */
+            }
+
+            /* Style for the error message */
+            p.error {
+                color: red; /* Set error message color */
+                margin-top: 5px; /* Add space above error message */
+            }
+
+            /* Style for the add product button */
+            #addProduct {
+                margin-top: 5px; /* Add space above the button */
+            }
+        </style>
+
+        <form method="post">
+            {% csrf_token %}
+            <div id="products">
+                <div class="form-group">
+                    <label for="{{ form.name_produit.id_for_label }}">Nom de produit:</label>
+                    <input type="text" name="nom[]" placeholder="Nom" value="{{ request.POST.nom }}" class="textinput">
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description:</label>
+                    <input type="text" name="description[]" placeholder="Description" value="{{ request.POST.description }}" class="textinput">
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.quantity_produit.id_for_label }}">Quantité:</label>
+                    <input type="number" name="quantite[]" placeholder="Quantité" value="{{ request.POST.quantite }}" required class="textinput">
+                </div>
+            </div>
+
+            <button type="button" id="addProduct" class="btn btn-primary">Ajouter un produit</button>
+
+            <div class="align-middle">
+                <button type="submit" class="btn btn-success">{{ savebtn }}</button>
+                {% if title == "Ajouter des nouveaux produits" %}
+                    <button type="reset" class="btn btn-danger">Réinitialiser</button>
+                {% endif %}
+                {% if delbtn %}
+                    <a href="{% url 'delete-produit' object.pk %}" class="btn btn-danger">Supprimer</a>
+                {% endif %}
+                <a href="{% url 'list_produit' %}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </form>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var addProductButton = document.getElementById("addProduct");
+            var productsDiv = document.getElementById("products");
+
+            addProductButton.addEventListener("click", function() {
+                var newProductDiv = document.createElement("div");
+                newProductDiv.classList.add("form-group");
+                newProductDiv.innerHTML = `
+                    <label for="{{ form.name_produit.id_for_label }}">Nom:</label>
+                    <input type="text" name="nom[]" placeholder="Nom" value="{{ request.POST.nom }}" class="textinput">
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description:</label>
+                    <input type="text" name="description[]" placeholder="Description" value="{{ request.POST.description }}" class="textinput">
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.quantity_produit.id_for_label }}">Quantité:</label>
+                    <input type="number" name="quantite[]" placeholder="Quantité" value="{{ request.POST.quantite }}" class="textinput">
+                </div>
+                <button style="margin-top: 10px;" type="button" class="btn btn-danger removeProduct">Supprimer</button>
+                `;
+                productsDiv.appendChild(newProductDiv);
+            });
+
+            // Gestionnaire d'événement pour supprimer un produit
+            productsDiv.addEventListener("click", function(event) {
+                if (event.target.classList.contains("removeProduct")) {
+                    var productToRemove = event.target.parentElement;
+                    productsDiv.removeChild(productToRemove);
+                }
+            });
+        });
+    </script>
+
+{% endblock content %}

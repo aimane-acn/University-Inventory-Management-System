@@ -1,0 +1,66 @@
+"{% extends "basemagasinier.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    
+    <br><!-- Log on to codeastro.com for more projects -->
+
+    <form method="post">
+        {% csrf_token %}
+            
+        <style>
+            /* Style for the form group */
+            .form-group {
+                margin-bottom: 20px; /* Add some space between form groups */
+            }
+        
+            /* Style for the labels */
+            label {
+                font-weight: bold; /* Make labels bold */
+                color: #333; /* Set label color */
+                font-size: 1.6em;
+        
+            }
+        </style>
+
+        {{ form.non_field_errors }}
+        
+        <div class="form-group ">
+            {{ form.name_produit.errors }}
+            <label for="{{ form.name_produit.id_for_label }}">Nom de produit:</label>
+            {{ form.name_produit }}
+            
+        </div>
+
+        <div class="form-group ">
+            {{ form.description.errors }}
+            <label for="{{ form.description.id_for_label }}">Description:</label>
+            {{ form.description }}
+        </div>
+    {% comment %} {% endif%} {% endcomment %}
+        <div class="form-group ">
+            {{ form.quantity_produit.errors }}
+            <label for="{{ form.quantity_produit.id_for_label }}">Quantité:</label>
+            {{ form.quantity_produit }}
+        </div>
+
+        <br><!-- Log on to codeastro.com for more projects -->
+
+        <div class="align-middle">
+            <button type="submit" class="btn btn-success">{{ savebtn }}</button>
+            {% if delbtn %}
+                <a href="{% url 'delete-produit' object.pk %}" class="btn  btn-danger">Supprimer</a>
+            {% endif %}
+            <a href="{% url 'list_produit' %}" class="btn btn-secondary">Annuler</a>
+           
+            
+        </div>
+        
+    </form><!-- Log on to codeastro.com for more projects -->
+
+{% endblock content %}
