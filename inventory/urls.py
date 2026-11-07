@@ -1,5 +1,4 @@
-from django.urls import path,reverse
-from django.conf.urls import url
+from django.urls import path, reverse
 from . import views
 
 urlpatterns = [

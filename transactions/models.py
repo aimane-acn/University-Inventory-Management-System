@@ -22,18 +22,18 @@ class PurchaseBill(models.Model):
     time = models.DateTimeField(auto_now=True)
     supplier = models.ForeignKey(Supplier, on_delete = models.CASCADE, related_name='purchasesupplier')
 
-def __str__(self):
-    return "Bill no: " + str(self.billno)
+    def __str__(self):
+        return "Bill no: " + str(self.billno)
 
-def get_items_list(self):
-    return PurchaseItem.objects.filter(billno=self)
+    def get_items_list(self):
+        return PurchaseItem.objects.filter(billno=self)
 
-def get_total_price(self):
-    purchaseitems = PurchaseItem.objects.filter(billno=self)
-    total = 0
-    for item in purchaseitems:
-        total += item.totalprice
-    return total
+    def get_total_price(self):
+        purchaseitems = PurchaseItem.objects.filter(billno=self)
+        total = 0
+        for item in purchaseitems:
+            total += item.totalprice
+        return total
 
 #contains the purchase stocks made
 class PurchaseItem(models.Model):
@@ -44,7 +44,7 @@ class PurchaseItem(models.Model):
     totalprice = models.IntegerField(default=1)
 
     def __str__(self):
-	    return "Bill no: " + str(self.billno.billno) + ", Item = " + self.stock.name
+        return "Bill no: " + str(self.billno.billno) + ", Item = " + self.stock.name_produit
 
 #contains the other details in the purchases bill
 class PurchaseBillDetails(models.Model):
@@ -77,18 +77,18 @@ class SaleBill(models.Model):
     email = models.EmailField(max_length=254)
     gstin = models.CharField(max_length=15)
 
-def __str__(self):
-    return "Bill no: " + str(self.billno)
+    def __str__(self):
+        return "Bill no: " + str(self.billno)
 
-def get_items_list(self):
-    return SaleItem.objects.filter(billno=self)
-    
-def get_total_price(self):
-    saleitems = SaleItem.objects.filter(billno=self)
-    total = 0
-    for item in saleitems:
-        total += item.totalprice
-    return total
+    def get_items_list(self):
+        return SaleItem.objects.filter(billno=self)
+
+    def get_total_price(self):
+        saleitems = SaleItem.objects.filter(billno=self)
+        total = 0
+        for item in saleitems:
+            total += item.totalprice
+        return total
 
 #contains the sale stocks made
 class SaleItem(models.Model):
@@ -99,7 +99,7 @@ class SaleItem(models.Model):
     totalprice = models.IntegerField(default=1)
 
     def __str__(self):
-	    return "Bill no: " + str(self.billno.billno) + ", Item = " + self.stock.name
+        return "Bill no: " + str(self.billno.billno) + ", Item = " + self.stock.name_produit
 
 #contains the other details in the sales bill
 class SaleBillDetails(models.Model):

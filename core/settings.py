@@ -11,22 +11,43 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'true'
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+# ---------------------------------------------------------------------------
+# Security — read from environment variables in production, fallback for dev
+# ---------------------------------------------------------------------------
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qyu(9l9v%^+r(vt#ecf+36#lis516#3bo5@bo-rd*d%a=!%8#!'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    os.environ.get(
+        'SECRET_KEY',
+        'qyu(9l9v%^+r(vt#ecf+36#lis516#3bo5@bo-rd*d%a=!%8#!'   # dev fallback only
+    )
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# In production (DATABASE_URL set), always disable DEBUG regardless of env var
+DEBUG = False if os.environ.get('DATABASE_URL') else os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['192.168.1.17', 'localhost', '127.0.0.1', 'testserver', '*']
+ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS', '')
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS_ENV.split(',') if h.strip()]
+    if '.vercel.app' not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append('.vercel.app')
+else:
+    ALLOWED_HOSTS = ['192.168.1.17', 'localhost', '127.0.0.1', 'testserver', '.vercel.app', '*']
+
+# CSRF Trusted Origins for HTTPS on Vercel
+# Add your custom domain via the CSRF_TRUSTED_ORIGINS env var if needed (comma-separated).
+_csrf_extra = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+] + [o.strip() for o in _csrf_extra.split(',') if o.strip()]
 
 
 # Application definition
@@ -38,20 +59,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',                    # serve static files in production
 
-    'widget_tweaks',                            # uses 'django-widget-tweaks' app
-    'crispy_forms',                             # uses 'django-crispy-forms' app
-    'login_required',                           # uses 'django-login-required-middleware' app
+    'widget_tweaks',                                    # uses 'django-widget-tweaks' app
+    'crispy_forms',                                     # uses 'django-crispy-forms' app
+]
 
+try:
+    import crispy_bootstrap4
+    INSTALLED_APPS.append('crispy_bootstrap4')
+except ImportError:
+    pass
+
+INSTALLED_APPS += [
     'homepage.apps.HomepageConfig',
     'inventory.apps.InventoryConfig',
     'transactions.apps.TransactionsConfig',
     'stockapp'
-
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',        # serve static files via WhiteNoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,15 +113,33 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# ---------------------------------------------------------------------------
+# Database — PostgreSQL in production via DATABASE_URL, SQLite locally
+# ---------------------------------------------------------------------------
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASE_URL = os.environ.get('DATABASE_URL', '')
+
+if DATABASE_URL:
+    # Production: PostgreSQL via DATABASE_URL environment variable
+    # conn_max_age=0: disable persistent connections — required for Neon's pooled URL.
+    # If using the DIRECT (non-pooler) URL, conn_max_age=600 is safe instead.
+    # Neon pooler (pgbouncer) operates in transaction mode and is incompatible
+    # with Django's persistent connections (conn_max_age > 0).
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=0,
+            ssl_require=True
+        )
     }
-}
+else:
+    # Local development: SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -123,23 +170,63 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
+# Primary key field type to match existing database models exactly
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+# ---------------------------------------------------------------------------
+# Static files — WhiteNoise serves them in production without a CDN
+# ---------------------------------------------------------------------------
 
 STATIC_URL = '/static/'
-STATIC_URL = '/style/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # collectstatic output dir
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'style/'),
+    os.path.join(BASE_DIR, 'homepage/static/'),
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'                     # bootstrap template crispy-form uses
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        # CompressedStaticFilesStorage: gzip-compresses static files without
+        # running the manifest integrity check. This avoids MissingFileError
+        # for sourcemap references (e.g. bootstrap.min.css.map) that are
+        # intentionally absent from the repository.
+        # CompressedManifestStaticFilesStorage would be stricter but requires
+        # all referenced files (including .map files) to be present.
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
+# Note: STATICFILES_STORAGE is deprecated in Django 4.2+ and removed in 5.x;
+# STORAGES above is the canonical configuration for Django 5.2.
 
-                                                         # sets the login redirect to the 'home' page after login
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 
-# LOGIN_URL = 'my_login'                                     # sets the 'login' page as default when user tries to illegally access profile or other hidden pages
+# ---------------------------------------------------------------------------
+# Security hardening — only active in production (when DATABASE_URL is set)
+# Vercel terminates SSL at the edge, so SECURE_SSL_REDIRECT is left off
+# (the proxy already enforces HTTPS before the request reaches Django).
+# ---------------------------------------------------------------------------
+_in_production = bool(os.environ.get('DATABASE_URL'))
 
+SECURE_HSTS_SECONDS          = 31536000 if _in_production else 0   # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = _in_production
+SECURE_HSTS_PRELOAD          = False   # Do NOT enable blindly; preloading requires permanent global HSTS domain inclusion
+SECURE_SSL_REDIRECT          = False   # Vercel edge handles HTTPS redirect
+SESSION_COOKIE_SECURE        = _in_production
+CSRF_COOKIE_SECURE           = _in_production
+# Vercel terminates TLS at the edge and forwards requests to Django with the
+# X-Forwarded-Proto: https header. Without this setting, request.is_secure()
+# returns False, breaking secure cookies, CSRF, and absolute URL generation.
+SECURE_PROXY_SSL_HEADER      = ('HTTP_X_FORWARDED_PROTO', 'https') if _in_production else None
+# Silence security.W008 & security.W021:
+# - W008: Vercel terminates TLS at the edge — Django must NOT redirect to HTTPS itself, or infinite redirect loops will occur.
+# - W021: SECURE_HSTS_PRELOAD intentionally False — portfolio deployment on .vercel.app should not submit to browser preload list.
+SILENCED_SYSTEM_CHECKS       = ['security.W008', 'security.W021']
+
+# LOGIN_URL = 'my_login'                                # sets the 'login' page as default when user tries to illegally access profile or other hidden pages

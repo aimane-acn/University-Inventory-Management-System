@@ -1,8 +1,10 @@
 # Environnement virtuel
 venv/
 venv_old/
+venv312/
 env/
 .venv/
+.venv*/
 
 # Python
 __pycache__/
@@ -12,6 +14,10 @@ __pycache__/
 # Django
 *.log
 db.sqlite3
+db.sqlite3.bak
+*.pre_upgrade_backup
+data_backup.json
+scratch/
 media/
 staticfiles/
 

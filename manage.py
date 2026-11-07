@@ -5,7 +5,10 @@ import sys
 
 
 def main():
-    os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'true'
+    # Allow async-unsafe operations in local development only (e.g. shell_plus, runserver).
+    # This must NOT be set when DATABASE_URL is defined (production / Neon).
+    if not os.environ.get('DATABASE_URL'):
+        os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = 'true'
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
         from django.core.management import execute_from_command_line

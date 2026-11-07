@@ -428,7 +428,7 @@ class ProduitListView(FilterView):
     paginate_by = 10  
 
     def get_queryset(self):
-        qs = produit.objects.all()
+        qs = produit.objects.all().order_by('id')
         if self.request.session.get('is_demo', False):
             qs = qs.filter(id__lte=DEMO_MAX_PRODUIT_ID)
         self.filterset = self.filterset_class(self.request.GET, queryset=qs)
@@ -453,7 +453,7 @@ class CommandedirecteurarchiveListView(FilterView):
             qs = commande.objects.filter(is_deleted=True)
             if self.request.session.get('is_demo', False):
                 qs = qs.filter(id__lte=DEMO_MAX_COMMANDE_ID)
-            return qs
+            return qs.order_by('-Date')
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -472,7 +472,7 @@ class CommandeListView(FilterView):
         paginate_by = 10
 
         def get_queryset(self):
-            qs = commande.objects.filter(is_deleted=True)
+            qs = commande.objects.filter(is_deleted=True).order_by('-Date', 'id')
             if self.request.session.get('is_demo', False):
                 qs = qs.filter(id__lte=DEMO_MAX_COMMANDE_ID)
             return qs
@@ -504,7 +504,7 @@ class ProduitdirecteurListView(FilterView):
         qs = produit.objects.filter(is_deleted=False)
         if self.request.session.get('is_demo', False):
             qs = qs.filter(id__lte=DEMO_MAX_PRODUIT_ID)
-        return qs
+        return qs.order_by('name_produit')
 
     def get_context_data(self, **kwargs):                                               # used to send additional context
             context = super().get_context_data(**kwargs)

@@ -33,7 +33,7 @@ class produit(models.Model):
     Max = models.IntegerField(default=3)
     Min = models.IntegerField(default=3)
     is_deleted = models.BooleanField(default=False)
-    def _str_(self):
+    def __str__(self):
 	    return self.name_produit
     
 
@@ -44,7 +44,7 @@ class commande(models.Model):
     Date = models.DateTimeField(default=timezone.now)
     Professeur = models.ForeignKey(Professeur, on_delete=models.CASCADE,null=True, blank=True,default=11)
     Directeur = models.ForeignKey(Directeur, on_delete=models.CASCADE,null=True, blank=True,default=4)
-    def _str_(self):
+    def __str__(self):
 	    return str(self.id)
 
 class DetailCommande(models.Model):

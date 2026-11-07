@@ -13,15 +13,16 @@ The system consists of three main components:
 - **Business Logic Layer (Django Apps)**  
   Manages purchase orders, needs expressions, stock catalog, director approval workflows, and stock deductions.
 
-- **Database (SQLite / Oracle)**  
+- **Database (PostgreSQL / SQLite)**
   Stores users, departments, inventory items, detailed orders, and status archives.
 
 ## Tech Stack
-- Python  
-- Django  
-- HTML, CSS, JavaScript  
-- Bootstrap  
-- SQLite  
+- Python 3.12
+- Django 5.2 LTS
+- PostgreSQL (Neon) / SQLite (Dev)
+- HTML5, CSS3, JavaScript
+- Bootstrap 4 & WhiteNoise
+- Cloud Hosting: Vercel Serverless
 
 ## Getting Started
 
@@ -79,10 +80,10 @@ requirements.txt  # Python dependencies
 ```
 
 ## Notes
-- Use Python 3.8.10  
-- The database `db.sqlite3` is included with pre-loaded demo data  
-- Skip migrations if using the included database  
-- Django Admin is available at `/aimane/`  
+- Compatible with Python 3.12 and Django 5.2 LTS
+- Production database hosted on Neon PostgreSQL
+- Automatic zero-configuration deployment on Vercel
+- Django Admin interface is available at `/aimane/`
 
 ## Author
 Aimane Achibane

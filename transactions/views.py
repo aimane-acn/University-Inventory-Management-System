@@ -36,7 +36,7 @@ from inventory.models import produit
 class SupplierListView(ListView):
     model = Supplier
     template_name = "suppliers/suppliers_list.html"
-    queryset = Supplier.objects.filter(is_deleted=False)
+    queryset = Supplier.objects.filter(is_deleted=False).order_by('name')
     paginate_by = 10
 
 

@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">
+
+    <title>{% block title %}Gestion de Stock Universitaire{% endblock title %}</title>
+</head>
+<body>
+    <main id="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a class="navbar-brand titlefont mr-4" href="{% url 'home' %}"><h3>Gestion Stock</h3></a>
+            </div>
+
+            <ul class="list-unstyled sidebar-components">
+                <li>
+                    <a class="sidebar-text sidebar-button" href="{% url 'home' %}"><i class="fas fa-home"></i> Accueil</a>
+                </li>
+                <li>
+                    <a href="#supplierSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dolly-flatbed"></i> Fournisseurs</a>
+                    <ul class="collapse list-unstyled" id="supplierSubmenu">
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'suppliers-list' %}"><i class="fas fa-dot-circle"></i> Liste Fournisseurs</a></li>
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-supplier' %}"><i class="fas fa-dot-circle"></i> Nouveau Fournisseur</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#purchaseSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Achats</a>
+                    <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'purchases-list' %}"><i class="fas fa-dot-circle"></i> Liste Achats</a></li>
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'select-supplier' %}"><i class="fas fa-dot-circle"></i> Nouvel Achat</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#saleSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dollar-sign"></i> Ventes</a>
+                    <ul class="collapse list-unstyled" id="saleSubmenu">
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'sales-list' %}"><i class="fas fa-dot-circle"></i> Commandes Ventes</a></li>
+                        <li><a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-sale' %}"><i class="fas fa-dot-circle"></i> Nouvelle Vente</a></li>
+                    </ul>
+                </li>
+
+                <li class="bottomleft">
+                    <div style="padding: 10px 15px; color: #fff; border-top: 1px solid rgba(255,255,255,0.15);">
+                        <div style="font-size: 13px; font-weight: bold;"><i class="fas fa-user-circle"></i> {{ request.session.username|default:request.user.username|default:"Utilisateur" }}</div>
+                        {% if request.session.is_demo %}
+                            <span class="badge badge-warning" style="font-size: 10px; margin-top: 4px; display:inline-block;">Mode Démo (Lecture seule)</span>
+                        {% else %}
+                            <span class="badge badge-success" style="font-size: 10px; margin-top: 4px; display:inline-block;">Compte Actif</span>
+                        {% endif %}
+                    </div>
+                    <a class="sidebar-text right-arrow sidebar-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="content" class="bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="container py-3">
+                        {% block content %}{% endblock content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- jQuery, Popper, Bootstrap JS -->
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+</body>
+</html>
