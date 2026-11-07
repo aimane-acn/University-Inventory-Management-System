@@ -7,20 +7,19 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="row" style="color: #4b0082; font-style: bold; font-size: 3rem; ">
         <div style="font-weight:bold;text-decoration:underline" class="col-md-8">Détails de la commande</div>
-        <div class="col-md-4">               
+        <div class="col-md-4">
             <form  method="post" class="form">
                 {% csrf_token %}
                     <input type='submit' name="validation" value='Annuler la commande '  {% if details_commande.0.commande.validation == "en attente" %}style="background:red;border:red;margin-top:25px;float:right;" enabled{% else %} style="background:grey;border:grey;margin-top:25px;float:right;" disabled{% endif %}  class="btn btn-secondary">
-        
+
             <form>
         </div>
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
     <h2>Détails de la commande {{ details_commande.0.commande_id }}</h2>
 
@@ -33,11 +32,11 @@
                     <th>Modification</th>
                 {% endif %}
             </tr>
-        </thead> 
-        <tbody>  
-            {% for detail in details_commande %} 
-                <tr> 
-                    <td style="font-weight:bold" class="align-middle">{{ detail.produit.name_produit }}</td>  
+        </thead>
+        <tbody>
+            {% for detail in details_commande %}
+                <tr>
+                    <td style="font-weight:bold" class="align-middle">{{ detail.produit.name_produit }}</td>
                     <td class="align-middle">{{ detail.quantite }}</td>
                     {% if detail.commande.validation == "en attente" %}
                         <td class="align-middle">
@@ -51,9 +50,9 @@
     </table>
     <div>
     <a href="{% url 'inventory' %}" class="btn btn-secondary">Retour à la liste des commandes</a>
-    
-    
-    
+
+
+
 
 
     {% comment %} <div class="align-middle">
@@ -72,7 +71,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -81,8 +80,8 @@
     </div> {% endcomment %}
 {% comment %} {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

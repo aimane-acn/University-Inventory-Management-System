@@ -7,21 +7,19 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="row" style="color: #4b0082; font-style: bold; font-size: 3rem; ">
         <div style="font-weight:bold;text-decoration:underline" class="col-md-8 " > Liste de besoins</div>
-        <div class="col-md-4">               
+        <div class="col-md-4">
             <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-besion' %}">Ajouter un besoin</a> </div>
         </div>
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
 
     <table class="table table-css table-bordered table-hover">
 
-	<!-- Log on to codeastro.com for more projects -->
         <form method="get">
             <div class="input-group search">
                 {% render_field filter.form.name_besion class="form-control textinput" placeholder="Rechercher par le nom" %}
@@ -32,7 +30,7 @@
         </form>
 
         <br>
-        
+
         <thead class="thead-dark align-middle">
             <tr>
                 <th>ID</th>
@@ -42,10 +40,10 @@
                 <th>Détails</th>
             </tr>
         </thead>
-                  
+
 {% if object_list %}
 
-        <tbody>     <!-- Log on to codeastro.com for more projects -->    
+        <tbody>
             {% for stock in object_list %}
                 <tr>
                     <td style="font-weight:bold;" class="align-middle">
@@ -72,16 +70,16 @@
                         {% else %}
                             <button class="btn btn-info btn-sm" style="background: grey; border: grey;" disabled>supprimer</button>
                         {% endif %}
-                    </td> 
-                    
-                    
+                    </td>
+
+
                     <td class="align-middle"><a href="{% url 'viww_besoin' stock.id %}" style="background-color:#138496;border-color:#138496" class="btn btn-info btn-sm">Voir plus</a> </td>
-                    
+
                 </tr>
-            {% endfor %}                    
+            {% endfor %}
         </tbody>
 
-    </table>  
+    </table>
 
     <div class="align-middle">
         {% if is_paginated and page_obj.has_other_pages %}
@@ -99,7 +97,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -109,8 +107,8 @@
 
 {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

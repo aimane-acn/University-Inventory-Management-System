@@ -7,14 +7,13 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div  style="color: #4b0082;text-decoration:underline; font-weight: bold; font-size: 3rem; ">
         <div class="align-middle">Liste de commandes acceptées</div>
     </div>
     <br>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
 
     <table class="table table-css table-bordered table-hover">
@@ -28,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-          
+
             {% for commande in commande_list %}
                 {% if commande.validation == "Accepter" %}
                     <tr>
@@ -50,7 +49,7 @@
             {% endfor %}
         </tbody>
     </table>
-     
+
 
     {% comment %} <div class="align-middle">
         {% if is_paginated %}
@@ -68,7 +67,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -78,11 +77,11 @@
 
 {% else %}
 
-         <tbody></tbody>   
+         <tbody></tbody>
     </table>
 
     <br><br><br><br><br><br><br><br>
-    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div> 
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>
 
 {% endif %} {% endcomment %}
 {% endblock content %}

@@ -7,10 +7,10 @@
 
 
 {% block content %}
-    
+
     <div class="row" style="color: #4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem;">
         <div class="col-md-8">Liste de professeurs</div>
-        <div class="col-md-4">               
+        <div class="col-md-4">
             <div style="float:right;"> <a class="btn btn-success" href="{% url 'ajouter_prof' %}">Ajouter un professeur</a> </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <br>
 
     <table class="table table-css table-hover table-bordered">
-        
+
         <thead class="thead-dark align-middle">
             <tr>
                 <th>Nom</th>
@@ -45,14 +45,14 @@
                         <a href="{% url 'modifier_prof' supplier.pk %}" class="btn btn-info btn-sm">modifier</a>
                         <a href="{% url 'supprimer_prof' supplier.pk %}" class="btn btn-danger btn-sm">supprimer</a>
                     </div>
-                </td>              
+                </td>
             </tr>
             {% endfor %}
         </tbody>
 
     </table>
 
-    <div class="align-middle"><!-- Log on to codeastro.com for more projects -->
+    <div class="align-middle">
         {% if is_paginated and page_obj.has_other_pages %}
 
             {% if page_obj.has_previous %}
@@ -78,8 +78,8 @@
 
 {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

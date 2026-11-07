@@ -6,17 +6,17 @@
 
 {% block content %}
 
-    <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div>
     <div >
         {% if besion %}
                         <a style="float:right;" href="{% url 'new-besion'%}" class="btn btn-success">Exprimer un besion</a>
         {% endif %}
     </div>
-    <br><!-- Log on to codeastro.com for more projects -->
+    <br>
 
     <form method="post" >
         {% csrf_token %}
-          
+
         <style>
             .form-group {
                 margin-bottom: 20px; /* Add some space between form groups */
@@ -41,13 +41,13 @@
                 color: red; /* Set error message color */
                 margin-top: 5px; /* Add space above error message */
             }
-            
+
 
         </style>
 
             <div class="form-group ">
                 <label for="produit_id">Nom:</label>
-                <select name='produit_id' class="textinput form-control" > 
+                <select name='produit_id' class="textinput form-control" >
                     {% for stock in stocks %}
                         {% if stock.quantity_produit > stock.Min %}
                             <option value="{{ stock.id }}">{{ stock.name_produit }}</option>
@@ -58,13 +58,13 @@
 
             <div class="form-group ">
                 <label for="quantite">Quantité:</label>
-                <input type="number" name="quantite"class="textinput form-control" > 
+                <input type="number" name="quantite"class="textinput form-control" >
                 {% if error%}
                     <p class="error">{{error}}</p>
-                {% endif  %}   
-            </div> 
-            
-        <br><!-- Log on to codeastro.com for more projects -->
+                {% endif  %}
+            </div>
+
+        <br>
 
         <div class="align-middle">
             <input type="submit" class="btn btn-success" value="{{ savebtn }}" >
@@ -72,9 +72,9 @@
                 <button type="reset" class="btn btn-danger" >Réinitialiser</button>
             {% endif %}
             <a href="{% url 'inventory' %}" class="btn btn-secondary">Annuler</a>
-           
+
         </div>
-        
-    </form><!-- Log on to codeastro.com for more projects -->
+
+    </form>
 
 {% endblock content %}

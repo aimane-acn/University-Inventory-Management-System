@@ -8,14 +8,13 @@
 
 {% block content %}
 
-    <!-- Log on to codeastro.com for more projects -->
     <div style="color: #4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; ">
         <div class="align-middle">Détails de besoin</div>
 
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
     <h2>Détails de la commande {{ details_commande.0.commande_id }}</h2>
 
@@ -27,11 +26,11 @@
                 <th>Raison du besoin</th>
                 <th>Quantité</th>
             </tr>
-        </thead> 
-        <tbody>  
-            {% for detail in details_commande %} 
-                <tr> 
-                    <td style="font-weight:bold;" class="align-middle">{{ detail.name_besion }}</td>  
+        </thead>
+        <tbody>
+            {% for detail in details_commande %}
+                <tr>
+                    <td style="font-weight:bold;" class="align-middle">{{ detail.name_besion }}</td>
                     <td class="align-middle">{{ detail.description_produit }}</td>
                     <td class="align-middle">{{ detail.besion }}</td>
                     <td class="align-middle">{{ detail.quantite}}</td>
@@ -39,7 +38,7 @@
             {% endfor %}
         </tbody>
     </table>
-    
+
     <a href="{% url 'list_besions' %}" class="btn btn-secondary">Retour à la liste de besoins</a>
     {% comment %} <form  method="post" class="form">
         {% csrf_token %}
@@ -65,7 +64,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -74,8 +73,8 @@
     </div> {% endcomment %}
 {% comment %} {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

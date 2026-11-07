@@ -1,28 +1,30 @@
 # 📦 Système de Gestion des Stocks Universitaire
 
+## Live Demo
+https://university-inventory-management-sys.vercel.app/
+
 ## Overview
-This project is a web application for managing university equipment and tracking resources across departments.  
+This project is a web application for managing university equipment and tracking resources across departments.
 Users can submit supply requests, manage stock levels, and oversee order workflows through role-based interfaces.
 
 ## Architecture
 The system consists of three main components:
 
-- **Web Application (Django)**  
+- **Web Application (Django)**
   Handles user authentication, role-based access, order management, and inventory tracking.
 
-- **Business Logic Layer (Django Apps)**  
+- **Business Logic Layer (Django Apps)**
   Manages purchase orders, needs expressions, stock catalog, director approval workflows, and stock deductions.
 
-- **Database (PostgreSQL / SQLite)**
+- **Database (SQLite / Oracle)**
   Stores users, departments, inventory items, detailed orders, and status archives.
 
 ## Tech Stack
-- Python 3.12
-- Django 5.2 LTS
-- PostgreSQL (Neon) / SQLite (Dev)
-- HTML5, CSS3, JavaScript
-- Bootstrap 4 & WhiteNoise
-- Cloud Hosting: Vercel Serverless
+- Python
+- Django
+- HTML, CSS, JavaScript
+- Bootstrap
+- SQLite
 
 ## Getting Started
 
@@ -54,7 +56,7 @@ python manage.py runserver
 ```
 
 ## Access
-Open your browser and go to:  
+Open your browser and go to:
 http://127.0.0.1:8000
 
 ### Demo Accounts
@@ -68,22 +70,22 @@ http://127.0.0.1:8000
 
 ## Project Structure
 ```bash
-core/             # Django project settings, URLs, middleware
-inventory/        # Orders, needs, stock levels, filters, views
-stockapp/         # User models (Professeur, Magasinier, Directeur, Admin)
-homepage/         # Role-specific sidebars and navigation templates
-templates/        # Global UI templates (login, signup)
-style/            # CSS stylesheets and assets
-db.sqlite3        # Pre-configured database with showcase dataset
-manage.py         # Django management script
-requirements.txt  # Python dependencies
+core/              # Django project settings, URLs, middleware
+inventory/         # Orders, needs, stock levels, filters, views
+stockapp/          # User models (Professeur, Magasinier, Directeur, Admin)
+homepage/           # Role-specific sidebars and navigation templates
+templates/          # Global UI templates (login, signup)
+style/              # CSS stylesheets and assets
+db.sqlite3          # Pre-configured database with showcase dataset
+manage.py           # Django management script
+requirements.txt    # Python dependencies
 ```
 
 ## Notes
-- Compatible with Python 3.12 and Django 5.2 LTS
-- Production database hosted on Neon PostgreSQL
-- Automatic zero-configuration deployment on Vercel
-- Django Admin interface is available at `/aimane/`
+- Use Python 3.8.10
+- The database `db.sqlite3` is included with pre-loaded demo data
+- Skip migrations if using the included database
+- Django Admin is available at `/aimane/`
 
 ## Author
 Aimane Achibane

@@ -6,7 +6,7 @@
 
 
 {% block content %}
-<div class="align-middle" style="color:#4b0082;font-weight:bold;text-decoration:underline;font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+<div class="align-middle" style="color:#4b0082;font-weight:bold;text-decoration:underline;font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div>
 <div >
 
     <a style="float:right;" href="{% url 'new-besion'%}" class="btn btn-success">Exprimer un besion</a>
@@ -16,7 +16,7 @@
   <br>
 <form id="commandeForm" method="post">
     {% csrf_token %}
-    
+
     <style>
     /* Style for the form group */
     .form-group {

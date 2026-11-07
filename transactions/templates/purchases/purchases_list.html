@@ -7,10 +7,10 @@
 
 
 {% block content %}
-    
+
     <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
         <div class="col-md-8">Purchases List</div>
-        <div class="col-md-4">            <!-- Log on to codeastro.com for more projects -->   
+        <div class="col-md-4">
             <div style="float:right;"> <a class="btn btn-success" href="{% url 'select-supplier' %}">New Incoming Stock</a> </div>
         </div>
     </div>
@@ -33,20 +33,20 @@
 
 {% if bills %}
 
-        <tbody>         
+        <tbody>
             {% for purchase in bills %}
             <tr>
                 <td class="align-middle"> <p>{{ purchase.billno }}</p> </td>
-                <td class=""> 
+                <td class="">
                     {% if purchase.supplier.is_deleted %}
-                        {{ purchase.supplier }}<br> 
+                        {{ purchase.supplier }}<br>
                     {% else %}
-                        <a href="{% url 'supplier' purchase.supplier.name %}">{{ purchase.supplier }}</a> <br> 
+                        <a href="{% url 'supplier' purchase.supplier.name %}">{{ purchase.supplier }}</a> <br>
                     {% endif %}
-                    <small style="color: #909494">Ph No : {{ purchase.supplier.phone }}</small> 
-                </td><!-- Log on to codeastro.com for more projects -->
+                    <small style="color: #909494">Ph No : {{ purchase.supplier.phone }}</small>
+                </td>
                 <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
-                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>
                 <td class="align-middle">${{ purchase.get_total_price }}</td>
                 <td class="align-middle">{{ purchase.time.date }}</td>
                 <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary btn-sm">View Bill</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger btn-sm">Delete Bill</a> </td>
@@ -82,12 +82,11 @@
 
 {% else %}
 
-        <tbody></tbody>  <!-- Log on to codeastro.com for more projects --> 
+        <tbody></tbody>
     </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try adding some.</div>
-<!-- Log on to codeastro.com for more projects -->
 {% endif %}
 
 {% endblock content %}

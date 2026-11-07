@@ -7,13 +7,12 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="align-middle" style="color: #4b0082;text-decoration:underline; font-style: bold; font-size: 3rem; ">
         <div style="font-weight:bold;" >Liste de commandes en cours</div>
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
 
     <table class="table table-css table-bordered table-hover">
@@ -39,17 +38,17 @@
             {% for commande in commande_list %}
                 <tr>
                     <td style="font-weight:bold" class="align-middle">{{ commande.id }}</td>
-                    
+
                     <td class="align-middle">{{ commande.Professeur.nom }}</td>
                     <td class="align-middle">{{ commande.Date }}</td>
                     <td class="align-middle">
-                        
+
                         <form action="{% url 'list_commande_directeur' %}" method="post" class="form">
                             {% csrf_token %}
-                            <input type="hidden" name="commande_id" value="{{ commande.id }}">    
-                            <input type='submit' name="validation" value='Accepter'  class="btn btn-info btn-sm"> 
+                            <input type="hidden" name="commande_id" value="{{ commande.id }}">
+                            <input type='submit' name="validation" value='Accepter'  class="btn btn-info btn-sm">
                             <input type='submit' name="validation" value='Refuser' class="btn btn-danger btn-sm">
-                        </form>   
+                        </form>
                     </td>
                     <td class="align-middle">
                         <a href="{% url 'view_more_directeur' commande.id %}" style="background-color:#138496;border-color:#138496" class="btn btn-info btn-sm">Voir plus</a>
@@ -58,7 +57,7 @@
             {% endfor %}
         </tbody>
     </table>
-     
+
 
     {% comment %} <div class="align-middle">
         {% if is_paginated %}
@@ -76,7 +75,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -86,11 +85,11 @@
 
 {% else %}
 
-         <tbody></tbody>   
+         <tbody></tbody>
     </table>
 
     <br><br><br><br><br><br><br><br>
-    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div> 
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>
 
 {% endif %} {% endcomment %}
 {% endblock content %}

@@ -205,8 +205,8 @@
     <style>
       /* Prevent browser autofill yellow/blue highlights */
       input:-webkit-autofill,
-      input:-webkit-autofill:hover, 
-      input:-webkit-autofill:focus, 
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
       input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 1000px white inset !important;
         box-shadow: 0 0 0 1000px white inset !important;
@@ -231,7 +231,7 @@
       <div class="role-selection-box">
         <label class="role-label-title"><i class="fas fa-user-tag"></i> Choisissez votre profil :</label>
         <div class="role-options">
-          
+
           <label class="role-option-card active" id="card-fonctionnaire" onclick="selectRole('fonctionnaire')">
             <input type="radio" name="role" value="fonctionnaire" id="radio-fonctionnaire" checked />
             <i class="fas fa-user-graduate"></i>
@@ -284,46 +284,46 @@
 
       <div class="input-box">
         <label for="nomUtilisateur"><i class="fas fa-id-badge"></i> Nom d'utilisateur (Identifiant)</label>
-        <input 
-          type="text" 
-          id="nomUtilisateur" 
-          name="nomUtilisateur" 
-          value="" 
-          autocomplete="off" 
+        <input
+          type="text"
+          id="nomUtilisateur"
+          name="nomUtilisateur"
+          value=""
+          autocomplete="off"
           readonly
           onfocus="this.removeAttribute('readonly');"
           onblur="if(!this.value) this.setAttribute('readonly', 'true');"
-          required 
+          required
         />
       </div>
 
       <div class="form-row">
         <div class="input-box">
           <label for="motDePasse"><i class="fas fa-lock"></i> Mot de passe</label>
-          <input 
-            type="text" 
-            id="motDePasse" 
-            name="motDePasse" 
-            autocomplete="new-password" 
-            value="" 
+          <input
+            type="text"
+            id="motDePasse"
+            name="motDePasse"
+            autocomplete="new-password"
+            value=""
             readonly
             onfocus="this.type='password'; this.removeAttribute('readonly');"
             onblur="if(!this.value) { this.type='text'; this.setAttribute('readonly', 'true'); }"
-            required 
+            required
           />
         </div>
         <div class="input-box">
           <label for="confirme_motdepasse"><i class="fas fa-lock"></i> Confirmer mot de passe</label>
-          <input 
-            type="text" 
-            id="confirme_motdepasse" 
-            name="confirme_motdepasse" 
-            autocomplete="new-password" 
-            value="" 
+          <input
+            type="text"
+            id="confirme_motdepasse"
+            name="confirme_motdepasse"
+            autocomplete="new-password"
+            value=""
             readonly
             onfocus="this.type='password'; this.removeAttribute('readonly');"
             onblur="if(!this.value) { this.type='text'; this.setAttribute('readonly', 'true'); }"
-            required 
+            required
           />
         </div>
       </div>

@@ -7,21 +7,19 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="row" style="color: #4e4e4e; font-style: bold; font-size: 3rem; ">
         <div class="col-md-8"> Liste des besoins</div>
-        <div class="col-md-4">               
+        <div class="col-md-4">
             <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-besion' %}">Ajouter un besoin</a> </div>
         </div>
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
 
     <table class="table table-css table-bordered table-hover">
 
-	<!-- Log on to codeastro.com for more projects -->
         <form method="get">
             <div class="input-group search">
                 {% render_field filter.form.name_besion class="form-control textinput" placeholder="Search by stock name" %}
@@ -32,7 +30,7 @@
         </form>
 
         <br>
-        
+
         <thead class="thead-dark align-middle">
             <tr>
                 <th width="40%">name_besion</th>
@@ -40,10 +38,10 @@
                 <th>besion</th>
             </tr>
         </thead>
-                  
+
 {% if object_list %}
 
-        <tbody>     <!-- Log on to codeastro.com for more projects -->    
+        <tbody>
             {% for stock in object_list %}
                 <tr>
                     <td>
@@ -55,10 +53,10 @@
                         <a href="{% url 'delete-besion' stock.pk %}" class="btn btn-danger btn-sm"> Delete besion </a>
                     </td>           {% endcomment %}
                 </tr>
-            {% endfor %}                   
+            {% endfor %}
         </tbody>
 
-    </table>  
+    </table>
 
     <div class="align-middle">
         {% if is_paginated %}
@@ -76,7 +74,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -86,8 +84,8 @@
 
 {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try adding some.</div>

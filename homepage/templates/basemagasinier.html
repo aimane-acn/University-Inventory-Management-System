@@ -1,5 +1,4 @@
 {% load static %}
-<!-- Log on to codeastro.com for more projects -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,15 +16,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-1aM/21VZ9GFmGE/BgVQ5Uv/zxkYl1P2I21VLlZSU7bPPIpd+qfJ0VfdzVqY0EzB3" crossorigin="anonymous">
 
     <!-- Main CSS, then Sidebar CSS and Dialog Box CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
-    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">    
-    <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">
 
-    <title>{% block title %}Title Missing{% endblock title %}</title>
+    <title>{% block title %}Gestion de Stock Universitaire - EST{% endblock title %}</title>
 
 </head>
 
-<!-- Log on to codeastro.com for more projects -->
 <body>
 
     <!-- Dialog Box CSS  -->
@@ -39,26 +37,26 @@
     </div>
 
     <main id="wrapper">
-    
+
     {% comment %} {% if user.is_authenticated %} {% endcomment %}
-    
+
         <nav id="sidebar">
-            
+
             <div class="sidebar-header">
                 <a class="navbar-brand titlefont mr-4" href="{% url 'list_produit' %}"><h3> Magasinier </h3></a>
             </div>
 
             <ul class="list-unstyled sidebar-components">
                 {# <p class="sidebar-paragraph">Dummy Heading</p> #}
-                <li> 
+                <li>
                     <a class="sidebar-text sidebar-button" href="{% url 'list_produit' %}"><i class="fas fa-home"></i> Acceuil</a>
                     <a class="sidebar-text sidebar-button" href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Tableau de bord</a>
-                </li>               
-                <li>       
+                </li>
+                <li>
                     <a href="{% url 'new-produit' %}"  class=" sidebar-text right-arrow sidebar-button"><i class="fas fa-square fa-plus"></i> Ajouter des produits</a>
                     {% comment %} <ul class="collapse list-unstyled" id="inventorySubmenu">
                         <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'new-stock' %}"><i class="fas fa-dot-circle"></i> Ajouter une commande</a> </li>
-                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'inventory' %}"><i class="fas fa-dot-circle"></i> Listes des commandes </a> </li>   
+                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'inventory' %}"><i class="fas fa-dot-circle"></i> Listes des commandes </a> </li>
                     </ul> {% endcomment %}
                 </li>
                 <li>
@@ -76,7 +74,7 @@
                        <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'list_besion' %}"><i class="fas fa-dot-circle"></i> Listes des besions</a> </li>
                    </ul> {% endcomment %}
                 </li>
-                {% comment %} 
+                {% comment %}
                 <li>
                     <a class='hidden'>lklk</a>
                     <a href="#purchaseSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Purchases</a>
@@ -101,9 +99,9 @@
                 </li> {% endcomment %}
                 {% comment %} <li>
                     <a class="sidebar-text sidebar-button" href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About</a>
-                </li><!-- Log on to codeastro.com for more projects --> {% endcomment %}
+                </li> {% endcomment %}
 
-                
+
                     {% comment %} <a href="#UserSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-user-circle"></i> {{ request.user.username }}</a> {% endcomment %}
                 <li class="bottomleft">
                     <div style="padding: 10px 15px; color: #fff; border-top: 1px solid rgba(255,255,255,0.15);">
@@ -115,7 +113,7 @@
                         {% endif %}
                     </div>
                     <a  class=" sidebar-text right-arrow sidebar-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
-                </li> 
+                </li>
 
             </ul>
             {% comment %}
@@ -130,32 +128,31 @@
             {% endcomment %}
 
         </nav>
-    
+
         <div id="content">
 
             <div class="row">
                 <div class="col-md-12">
-                
+
                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
                         {% endfor %}
                     {% endif %}
-                
+
     {% comment %} {% endif %}  {% endcomment %}
 
                     <div class="container">
                         {% block content %}{% endblock content %}
                     </div>
-                    
+
                 </div>
             </div>
             <br>
 
         </div>
-    
-    </main>    
-        <!-- Log on to codeastro.com for more projects -->
+
+    </main>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
     <script src="{% static 'bootstrap/popper.min.js' %}"></script>

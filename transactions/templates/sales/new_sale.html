@@ -8,17 +8,17 @@
 {% block content %}
 
     <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">New Sale</div>
-    
-    <br><!-- Log on to codeastro.com for more projects -->
+
+    <br>
 
     <form method="post" class="panel panel-default">
-        
+
         {% csrf_token %}
         {{ form.non_field_errors }}
 
         <div class="panel-heading panel-heading-text">Customer Details</div>
         <div class="panel-body">
-            
+
             {{ form.name.errors }}
             {{ form.phone.errors }}
             {{ form.email.errors }}
@@ -27,15 +27,15 @@
 
             <div class="form-group">
                 <label for="{{ form.name.id_for_label }}" class="panel-body-text">Customer Name:</label>
-                {{ form.name }}                
-            </div><!-- Log on to codeastro.com for more projects -->
+                {{ form.name }}
+            </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6"> 
+                <div class="form-group col-md-6">
                     <label for="{{ form.phone.id_for_label }}" class="panel-body-text">Phone No:</label>
                     {{ form.phone }}
-                </div><!-- Log on to codeastro.com for more projects -->
-                <div class="form-group col-md-6">              
+                </div>
+                <div class="form-group col-md-6">
                     <label for="{{ form.email.id_for_label }}" class="panel-body-text">Email:</label>
                     {{ form.email }}
                 </div>
@@ -55,12 +55,12 @@
         <br>
 
         <div class="panel panel-default">
-            
+
             {{ formset.management_form }}
 
             <div class="panel-heading panel-heading-text">Product Details</div>
-            
-                <div id="stockitem"> 
+
+                <div id="stockitem">
                     <div class="panel-body">
                     {% for iform in formset %}
                         <div class="row form-row">
@@ -81,14 +81,14 @@
                             <div class="form-group col-md-1">
                                 <label class="panel-body-text">Price:</label>
                                 <input type="text" class="textinput form-control totalprice" value="1" disabled required>
-                            </div><!-- Log on to codeastro.com for more projects -->
+                            </div>
                             <div class="form-group col-md-1">
                                 <label class="panel-body-text" style="color: #000">.</label>
                                 <button class="form-control btn btn-danger remove-form-row">-</button>
                             </div>
                         </div>
                     {% endfor %}
-                        <div style="text-align: right;">                    
+                        <div style="text-align: right;">
                             <a href="#" class="add-form-row">+ Add More</a>
                         </div>
                     </div>
@@ -101,16 +101,16 @@
                 <button type="submit" class="btn btn-success">Add to Sales</button>
                 <a href="{% url 'sales-list' %}" class="btn btn-secondary">Cancel</a>
             </div>
-            
+
         </div>
 
-    </form><!-- Log on to codeastro.com for more projects -->
+    </form>
 
     <!-- Custom JS to add and remove item forms -->
     <script type="text/javascript" src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dialogbox.js' %}"></script>
     <script type="text/javascript">
-        
+
         //creates custom alert object
         var custom_alert = new custom_alert();
 
@@ -121,7 +121,7 @@
             if (el.id) el.id = el.id.replace(id_regex, replacement);
             if (el.name) el.name = el.name.replace(id_regex, replacement);
         }
-        
+
         //stores the total no of item forms
         var total = 1;
 
@@ -148,7 +148,7 @@
             $(selector).after(newElement);
             return false;
         }
-        
+
         function deleteForm(prefix, btn) {
             //var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
             if (total > 1){
@@ -166,13 +166,13 @@
             }
             return false;
         }
-        
+
         $(document).on('click', '.add-form-row', function(e){
             e.preventDefault();
             cloneMore('.form-row:last', 'form');
             return false;
         });
-        
+
         $(document).on('click', '.remove-form-row', function(e){
             e.preventDefault();
             deleteForm('form', $(this));
@@ -190,8 +190,8 @@
                 }
             {% endfor %}
         ];
-        
-        //updates the total price by multiplying 'price per item' and 'quantity' 
+
+        //updates the total price by multiplying 'price per item' and 'quantity'
         $(document).on('change', '.setprice', function(e){
             e.preventDefault();
             //gets the values
@@ -220,7 +220,7 @@
                         }
                     }
                 }
-            });     
+            });
             //calculates the total
             var tprice = quantity * perprice;
             //sets it to field

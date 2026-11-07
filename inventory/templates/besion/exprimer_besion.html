@@ -6,9 +6,9 @@
 
 {% block content %}
 
-    <div class="align-middle" style="color:#4b0082;font-weight:bold;text-decoration:underline;font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
-    
-    <br><!-- Log on to codeastro.com for more projects -->
+    <div class="align-middle" style="color:#4b0082;font-weight:bold;text-decoration:underline;font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div>
+
+    <br>
 
     <form method="post">
         {% csrf_token %}
@@ -18,13 +18,13 @@
             .form-group {
                 margin-bottom: 20px; /* Add some space between form groups */
             }
-        
+
             /* Style for the labels */
             label {
                 font-weight: bold; /* Make labels bold */
                 color: #333; /* Set label color */
                 font-size: 1.6em;
-        
+
             }
             .description-box {
                 height: 150px; /* Hauteur de la zone de texte */
@@ -33,14 +33,14 @@
                 border-radius: 5px; /* Coins arrondis */
                 resize: vertical; /* Permettre le redimensionnement vertical */
                 font-family: Arial, sans-serif; /* Police de caractères */
-            }            
+            }
 
-        </style>    
+        </style>
 
 
 
         {{ form.non_field_errors }}
-            
+
         <div class="form-group">
             {{ form.name_besion.errors }}
             <label for="{{ form.quantity_commande.id_for_label  }}">Nom:</label>
@@ -50,13 +50,13 @@
         <div class="form-group ">
             {{ form.quantite.errors }}
             <label for="{{ form.quantity_commande.id_for_label }}">Quantité:</label>
-            {{ form.quantite }}      
+            {{ form.quantite }}
         </div>
         {% comment %} {% endif%} {% endcomment %}
         <div class="form-group ">
             {{ form.description_produit.errors }}
             <label for="{{ form.quantity_commande.id_for_label }}">Description_besoin:</label>
-            {{ form.description_produit }}      
+            {{ form.description_produit }}
         </div>
 
         <div class="form-group ">
@@ -65,7 +65,7 @@
             {{ form.besion }}
         </div>
 
-        <br><!-- Log on to codeastro.com for more projects -->
+        <br>
 
         <div class="align-middle">
             <button type="submit" class="btn btn-success" >{{ savebtn }}</button>
@@ -77,7 +77,7 @@
             {% endif %}
             <a href="{% url 'list_besion' %}" class="btn btn-secondary">Annuler</a>
         </div>
-        
-    </form><!-- Log on to codeastro.com for more projects -->
+
+    </form>
 
 {% endblock content %}

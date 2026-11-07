@@ -7,7 +7,7 @@
 {% block content %}
 
     <div class="align-middle" style="color:#4b0082; font-weight: bold;text-decoration:underline; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> <br>
-    
+
    <form method="post" autocomplete="off" id="formAjouterProf">
     {% csrf_token %}
 
@@ -16,13 +16,13 @@
         <input type="text" name="fake_username_filler" tabindex="-1" autocomplete="username" />
         <input type="password" name="fake_password_filler" tabindex="-1" autocomplete="current-password" />
     </div>
-    
+
     <style>
         /* Style for the form group */
         .form-group {
             margin-bottom: 20px; /* Add some space between form groups */
         }
-    
+
         /* Style for the labels */
         label {
             font-weight: bold; /* Make labels bold */
@@ -32,8 +32,8 @@
 
         /* Prevent browser autofill yellow/blue highlights */
         input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
         input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 1000px white inset !important;
             box-shadow: 0 0 0 1000px white inset !important;
@@ -73,37 +73,37 @@
             <option value="Energies renouvlables">Energies renouvlables</option>
             <option value="Génie eléctrique">Génie eléctrique</option>
             <option value="Technique de management">Technique de management</option>
-        </select> 
+        </select>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="id_nomUtilisateur">Nom d'utilisateur:</label>
-            <input 
-                type="text" 
-                id="id_nomUtilisateur" 
-                name="nomUtilisateur" 
-                class="form-control" 
-                autocomplete="off" 
+            <input
+                type="text"
+                id="id_nomUtilisateur"
+                name="nomUtilisateur"
+                class="form-control"
+                autocomplete="off"
                 readonly
                 onfocus="this.removeAttribute('readonly');"
                 onblur="if(!this.value) this.setAttribute('readonly', 'true');"
-                value="" 
+                value=""
                 required
             >
         </div>
         <div class="form-group col-md-6">
             <label for="id_motDePasse">Mot de passe:</label>
-            <input 
-                type="text" 
-                id="id_motDePasse" 
-                name="motDePasse" 
-                class="form-control" 
-                autocomplete="new-password" 
+            <input
+                type="text"
+                id="id_motDePasse"
+                name="motDePasse"
+                class="form-control"
+                autocomplete="new-password"
                 readonly
                 onfocus="this.type='password'; this.removeAttribute('readonly');"
                 onblur="if(!this.value) { this.type='text'; this.setAttribute('readonly', 'true'); }"
-                value="" 
+                value=""
                 required
             >
         </div>

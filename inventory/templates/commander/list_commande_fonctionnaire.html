@@ -7,16 +7,15 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="row" style="color: #4b0082; font-style: bold; font-size: 3rem; ">
         <div style="font-weight:bold;text-decoration:underline" class="col-md-8">Liste de commandes</div>
-        <div class="col-md-4">               
+        <div class="col-md-4">
             <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-stock' %}">Commander</a> </div>
         </div>
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
     <br>
 
@@ -24,7 +23,7 @@
         <thead class="thead-dark align-middle">
             <tr>
                 <th>ID Commande</th>
-               
+
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
@@ -33,7 +32,7 @@
             {% for commande_id, details in detail_dict.items %}
                 <tr>
                     <td>{{ commande_id }}</td>
-          
+
                     <td>{{ details.0.commande.Date }}</td>
                     <td>
                         <a href="{% url 'view_more' detail.commande.id %}" class="btn btn-info btn-sm">Voir plus</a>
@@ -42,7 +41,7 @@
             {% endfor %}
         </tbody>
     </table> {% endcomment %}
- 
+
   <table class="table table-css table-bordered table-hover">
         <thead class="thead-dark align-middle">
             <tr>
@@ -77,7 +76,7 @@
 
                         {% endif %}
 
-            
+
                     <td class="align-middle">{{ commande.Date }}</td>
                     <td class="align-middle">
                         <a href="{% url 'view_more' commande.id %}" style="background-color:#138496;border-color:#138496" class="btn btn-info btn-sm">Voir plus</a>
@@ -86,7 +85,7 @@
                         {% comment %} <script>
                             window.onload = function() {
                                 var  {% commande.validation == "Accepter" %} = true; // Mettez votre condition ici
-                    
+
                                 if (condition) {
                                     document.getElementById('validation').removeAttribute('disabled');
                                 } else {
@@ -97,7 +96,7 @@
                         <form action="{% url 'inventory' %}" method="post" class="form">
                             {% csrf_token %}
                                 <input type="hidden" name="commande_id" value="{{ commande.id }}">
-                                <input type='submit' name="validation" value='recus'  
+                                <input type='submit' name="validation" value='recus'
                                 {% if commande.validation == "Accepter" %} style="background:green; border:green" enabled{% else %} style="background:grey;border:grey" disabled{% endif %}  class="btn btn-info btn-sm">
 
                         </form>
@@ -135,7 +134,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -144,8 +143,8 @@
     </div>
 {% comment %} {% else %}
 
-        <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+        <tbody></tbody>
+    </table>
 
     <br><br><br><br><br><br><br><br>
     <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

@@ -7,14 +7,13 @@
 
 
 {% block content %}
-    <!-- Log on to codeastro.com for more projects -->
     <div class="align-middle" style="color: #4b0082; font-style: bold; font-size: 3rem; ">
         <div style="font-weight:bold;text-decoration:underline;" > Liste de produits en stock </div>
 
     </div>
-    
+
     <div style="border-bottom: 1px solid white;"></div>
-    
+
     <br>
 
     <table class="table table-css table-bordered table-hover">
@@ -26,49 +25,49 @@
                    <button type="submit" class="btn btn-pink"> Rechercher </button>
                 </div>
             </div>
-    </form> 
+    </form>
 
         <br>
-        
+
         <thead class="thead-dark align-middle">
             <tr>
-                
+
                 <th >Nom De Produit</th>
                 <th width="50%">Description</th>
                 <th>Quantité</th>
-                
+
             </tr>
         </thead>
-                  
-{% if object_list %}
-        <tbody>     
 
-                    
+{% if object_list %}
+        <tbody>
+
+
                 {% for stock in stocks %}
-                <tr>  
+                <tr>
                     <td class="align-middle">
                         <p style="font-weight:bold">{{ stock.name_produit }}
-                            
+
                         {% if stock.quantity_produit < stock.Min %}
                             <p style="color:red">{{error}}</p>
                         {% endif %}
-                        </p>    
-                    </td>  
+                        </p>
+                    </td>
                     <td class="align-middle">{{ stock.description }}</td>
                     <td class="align-middle">{{ stock.quantity_produit }}</td>
-                    
+
                 </tr>
                 {% endfor %}
 
-            
-        
-             
-           
-                
+
+
+
+
+
         </tbody>
 
-    </table>  
-{% comment %} 
+    </table>
+{% comment %}
     <div class="align-middle">
         {% if is_paginated and page_obj.has_other_pages %}
 
@@ -85,7 +84,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if page_obj.has_next %}<!-- Log on to codeastro.com for more projects -->
+            {% if page_obj.has_next %}
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
             {% endif %}
@@ -94,8 +93,8 @@
     </div> {% endcomment %}
 {% else %}
 
-            <tbody></tbody>   
-        </table><!-- Log on to codeastro.com for more projects -->
+            <tbody></tbody>
+        </table>
 
         <br><br><br><br><br><br><br><br>
         <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Les enregistrements sont vides. Veuillez essayer d'en ajouter.</div>

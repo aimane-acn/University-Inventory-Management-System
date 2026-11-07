@@ -200,7 +200,7 @@
         <span style="font-size: 10px; color:#6366f1; font-weight: 600;">1-Clic Remplir</span>
       </div>
       <div class="demo-ext-grid">
-        
+
         <div class="demo-pill-btn" onclick="fillCredentials('fonctionnaire', 'Aimane123@')">
           <div class="demo-pill-role"><i class="fas fa-user-graduate" style="color:#2563eb;"></i> Fonctionnaire</div>
           <div class="demo-pill-info">fonctionnaire</div>
@@ -241,8 +241,8 @@
     <style>
       /* Prevent browser autofill yellow/blue highlights */
       input:-webkit-autofill,
-      input:-webkit-autofill:hover, 
-      input:-webkit-autofill:focus, 
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
       input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 1000px white inset !important;
         box-shadow: 0 0 0 1000px white inset !important;
@@ -257,7 +257,7 @@
     <!-- Login Form with Anti-Autofill -->
     <form action="" method="post" id="loginForm" autocomplete="off">
       {% csrf_token %}
-      
+
       <!-- Offscreen dummy inputs to absorb aggressive browser autofill -->
       <div style="position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; overflow: hidden;" aria-hidden="true">
         <input type="text" name="fake_username_filler" tabindex="-1" autocomplete="username" />
@@ -266,32 +266,32 @@
 
       <div class="input-box">
         <label for="nomUtilisateur"><i class="fas fa-user"></i> Nom d'utilisateur</label>
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="nomUtilisateur"
-          name="nomUtilisateur" 
-          placeholder="Entrez votre nom d'utilisateur" 
-          autocomplete="off" 
+          name="nomUtilisateur"
+          placeholder="Entrez votre nom d'utilisateur"
+          autocomplete="off"
           readonly
           onfocus="this.removeAttribute('readonly');"
           onblur="if(!this.value) this.setAttribute('readonly', 'true');"
-          required 
+          required
           value=""
         />
       </div>
 
       <div class="input-box">
         <label for="motDePasse"><i class="fas fa-lock"></i> Mot de passe</label>
-        <input 
-          type="password" 
+        <input
+          type="password"
           id="motDePasse"
-          name="motDePasse" 
-          placeholder="Entrez votre mot de passe" 
-          autocomplete="new-password" 
+          name="motDePasse"
+          placeholder="Entrez votre mot de passe"
+          autocomplete="new-password"
           readonly
           onfocus="this.removeAttribute('readonly');"
           onblur="if(!this.value) this.setAttribute('readonly', 'true');"
-          required 
+          required
           value=""
         />
       </div>
